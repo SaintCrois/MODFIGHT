@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModFight</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            font-family: 'Press Start 2P', cursive; 
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1a1a1a;  
+            overflow: hidden; 
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;  
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+        }
+
+        img {
+            display: none;
+        }
+
+        #start-screen {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background-color: #f6f6f6; 
+            background-size: 35%; 
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-image: url('https://www.pngkey.com/png/detail/421-4218737_hormiga-ant-pixel-art.png'); 
+            color: black; 
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        #flicker-light {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px; 
+            background: linear-gradient(90deg, #ff0000, #ff9900, #ff0000); 
+            opacity: 0.5; 
+            animation: flicker 3s infinite alternate; 
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 0.2;
+                transform: scaleX(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scaleX(1.1);
+            }
+            100% {
+                opacity: 0.3;
+                transform: scaleX(1);
+            }
+        }
+
+        #start-screen h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+            color: black; 
+        }
+
+        #start-screen button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #e74c3c; 
+            color: white;
+            border: 3px solid #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;  
+            transition: all 0.3s ease-in-out;
+        }
+
+        #start-screen button:hover {
+            background-color: #c0392b;
+            transform: scale(1.1); 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        /* หน้าเกมหลัก */
+        #game-screen {
+            display: none; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script type="module" src="src/index.js"></script>
+</head>
+<body>
+
+    <!-- หน้าเริ่มเกม -->
+    <div id="start-screen">
+        <h1>ModFight!</h1>
+        <button id="start-button">Start Game</button>
+        <div id="flicker-light"></div> 
+    </div>
+
+    <!-- หน้าเกมหลัก -->
+    <div id="game-screen">
+        <canvas width="384" height="224"></canvas>
+    </div>
+
+    <img src="images/firstmap.png" alt="firstmap" />
+    <img src="images/natasha-stage.png" alt="stage" />
+    <img src="images/natasha2-stage.png" alt="stage" />
+    <img src="images/shadow.png" alt="shadow" />
+    <img src="images/misc.png" alt="misc" />
+    <img src="images/decals.png" alt="decals" />
+    <img src="images/natasha.png" alt="natasha" />
+    <img src="images/jumpol.png" alt="jumpol" />
+
+    <audio id="MusicBG" src="sounds/MusicBG.mp3" preload="auto" autoplay loop></audio>
+    <audio id="sounds-fighter-Hattack" src="sounds/Hattack.wav"></audio>
+    <audio id="sounds-fighter-Hhit" src="sounds/Hhit.wav"></audio>
+    <audio id="sounds-fighter-Hkick" src="sounds/Hkick.wav"></audio>
+    <audio id="sounds-fighter-Land" src="sounds/Land.wav"></audio>
+
+    <script>
+        const startButton = document.getElementById("start-button");
+        const startScreen = document.getElementById("start-screen");
+        const gameScreen = document.getElementById("game-screen");
+
+        startButton.addEventListener("click", function() {
+            startScreen.style.display = "none";
+            gameScreen.style.display = "block";
+            startGame();
+        });
+
+        function startGame() {
+            console.log("Game started!");
+        }
+    </script>
+
+</body>
+</html>
