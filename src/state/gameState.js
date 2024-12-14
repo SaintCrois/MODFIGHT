@@ -1,5 +1,5 @@
 import { FighterId } from '../constants/fighter.js';
-import { createDefaultFighterState } from './FighterState.js';
+import { createDefaultFighterState } from './fighterState.js';
 
 export const gameState = {
   fighters: [
