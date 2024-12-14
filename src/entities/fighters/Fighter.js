@@ -3,7 +3,7 @@ import {FRAME_TIME} from '../../constants/game.js'
 import { STAGE_FLOOR, STAGE_MID_POINT, STAGE_PADDING, } from '../../constants/stage.js';
 import { boxOverlap, getActualBoxDimensions, rectsOverlap } from '../../utils/collisions.js';
 import * as control from '../../engine/InputHandler.js';
-import { gameState } from '../../state/GameState.js';
+import { gameState } from '../../state/gameState.js';
 import { DEBUG_drawCollisionInfo } from '../../utils/fighterDebug.js';
 
 export class Fighter {
