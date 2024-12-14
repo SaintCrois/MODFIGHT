@@ -1,6 +1,6 @@
 import { HEALTH_CRITICAL_HIT_POINTS, HEALTH_DAMAGE_COLOR, HEALTH_MAX_HIT_POINTS, KO_ANIMATION, KO_FLASH_DELAY, TIME_DELAY, TIME_FLASH_DELAY, TIME_FRAME_KEYS } from '../../constants/battle.js';
 import { FPS } from '../../constants/game.js';
-import { gameState } from '../../state/GameState.js';
+import { gameState } from '../../state/gameState.js';
 import { drawFrame } from '../../utils/context.js';
 
 export class StatusBar {
