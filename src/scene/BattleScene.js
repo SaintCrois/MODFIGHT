@@ -6,7 +6,7 @@ import { Stage } from '../entities/Stage.js';
 import { StatusBar } from '../entities/overlays/StatusBar.js'
 import { FpsCounter } from '../entities/overlays/FpsCounter.js'
 import { STAGE_MID_POINT, STAGE_PADDING } from '../constants/stage.js';
-import { gameState } from '../state/GameState.js';
+import { gameState } from '../state/gameState.js';
 import { FighterAttackBaseData, FighterAttackStrength, FighterId } from '../constants/fighter.js';
 import { HeavyHitSplash, LightHitSplash } from '../entities/fighters/shared/index.js';
 
