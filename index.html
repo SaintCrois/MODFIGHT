@@ -10,21 +10,21 @@
             padding: 0;
             margin: 0;
             height: 100%;
-            font-family: 'Press Start 2P', cursive; 
+            font-family: 'Press Start 2P', cursive;
         }
 
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #1a1a1a;  
-            overflow: hidden; 
+            background-color: #1a1a1a;
+            overflow: hidden;
         }
 
         canvas {
             width: 100%;
             height: 100%;
-            object-fit: contain;  
+            object-fit: contain;
             image-rendering: crisp-edges;
             image-rendering: pixelated;
         }
@@ -41,12 +41,12 @@
             flex-direction: column;
             width: 100%;
             height: 100%;
-            background-color: #f6f6f6; 
-            background-size: 35%; 
+            background-color: #f6f6f6;
+            background-size: 35%;
             background-position: right bottom;
             background-repeat: no-repeat;
-            background-image: url('https://www.pngkey.com/png/detail/421-4218737_hormiga-ant-pixel-art.png'); 
-            color: black; 
+            background-image: url('https://www.pngkey.com/png/detail/421-4218737_hormiga-ant-pixel-art.png');
+            color: black;
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
@@ -59,10 +59,10 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 30px; 
-            background: linear-gradient(90deg, #ff0000, #ff9900, #ff0000); 
-            opacity: 0.5; 
-            animation: flicker 3s infinite alternate; 
+            height: 30px;
+            background: linear-gradient(90deg, #ff0000, #ff9900, #ff0000);
+            opacity: 0.5;
+            animation: flicker 3s infinite alternate;
         }
 
         @keyframes flicker {
@@ -84,36 +84,70 @@
             font-size: 3em;
             margin-bottom: 20px;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-            color: black; 
+            color: black;
         }
 
         #start-screen button {
             padding: 15px 30px;
             font-size: 1.5em;
-            background-color: #e74c3c; 
+            background-color: #e74c3c;
             color: white;
             border: 3px solid #fff;
             cursor: pointer;
             border-radius: 5px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            text-transform: uppercase;  
+            text-transform: uppercase;
             transition: all 0.3s ease-in-out;
         }
 
         #start-screen button:hover {
             background-color: #c0392b;
-            transform: scale(1.1); 
+            transform: scale(1.1);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
         }
 
         /* หน้าเกมหลัก */
         #game-screen {
-            display: none; 
+            display: none;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+        }
+
+        #game-over-screen {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+        }
+
+        #game-over-screen h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        #game-over-screen button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #e74c3c;
+            color: white;
+            border: 3px solid #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #game-over-screen button:hover {
+            background-color: #c0392b;
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
         }
     </style>
     <script type="module" src="./src/index.js"></script>
@@ -124,12 +158,22 @@
     <div id="start-screen">
         <h1>ModFight!</h1>
         <button id="start-button">Start Game</button>
-        <div id="flicker-light"></div> 
+        <div id="flicker-light"></div>
     </div>
 
     <!-- หน้าเกมหลัก -->
     <div id="game-screen">
         <canvas width="384" height="224"></canvas>
+    </div>
+
+    <!-- หน้าเกมจบหมดเวลา -->
+    <div id="game-over-screen">
+        <h1>Game Over! Draw!</h1>
+        <button id="restart-button">Start New Game</button>
+    </div>
+    
+    <!-- หน้าเกมจบคนชนะ -->
+    <div id="game-over">
     </div>
 
     <img src="images/firstmap.png" alt="firstmap" />
@@ -151,6 +195,12 @@
         const startButton = document.getElementById("start-button");
         const startScreen = document.getElementById("start-screen");
         const gameScreen = document.getElementById("game-screen");
+        const gameOverScreen = document.getElementById("game-over-screen");
+        const restartButton = document.getElementById("restart-button");
+
+        let timeLeft = 47;
+        let gameInterval;
+        let countdownInterval;
 
         startButton.addEventListener("click", function() {
             startScreen.style.display = "none";
@@ -160,8 +210,35 @@
 
         function startGame() {
             console.log("Game started!");
-            document.getElementById("MusicBG").play();
+
+            // ตั้งเวลาและเริ่มการนับเวลา
+            gameInterval = setInterval(updateTime, 1000);
+            countdownInterval = setInterval(updateCountdown, 1000);
         }
+
+        function updateTime() {
+            if (timeLeft <= 0) {
+                clearInterval(gameInterval);
+                clearInterval(countdownInterval);
+                showGameOverScreen();
+            }
+            timeLeft--;
+        }
+
+        function updateCountdown() {
+            const seconds = timeLeft % 60;
+            // อัปเดต UI ที่นี่ (ถ้าจำเป็น)
+        }
+
+        function showGameOverScreen() {
+            gameScreen.style.display = "none";
+            gameOverScreen.style.display = "block";
+        }
+
+        restartButton.addEventListener("click", function() {
+            // รีโหลดหน้าเว็บใหม่เมื่อกดปุ่ม Start New Game
+            location.reload();
+        });
     </script>
 
 </body>
